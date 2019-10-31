@@ -1,5 +1,6 @@
 import React from 'react';
 import './UserForm.scss';
+import { UsersList } from './UsersList';
 class UserForm extends React.Component {
     constructor(props) {
         super(props);
@@ -20,6 +21,7 @@ class UserForm extends React.Component {
                 }
             }
     };
+    this.userList = new UsersList()
         this.messages = {
             alreadyExist: 'Cet utilsiateur existe deja ! ',
             notComform :  'Ne doit comporter que des majuscule'}
@@ -54,11 +56,11 @@ class UserForm extends React.Component {
     }
     handleSubmit = (event) => {
         event.preventDefault();
-        
-        this.state.alerts.alreadyExist.value = this.isUserExist(this.state.value)  
+
+        this.state.alerts.alreadyExist.value = this.userList.isUserExist(this.state.value)  
         this.state.alerts.empty.value = !this.isTextIsEmpty(this.state.value)
 
-        if(!this.getErrors.length >0)this.users.push(this.state.value)
+        if(!this.getErrors.length >0)this.userList.addUser(this.state.value)
 
         this.setState({alerts : this.state.alerts});
     }
